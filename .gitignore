@@ -1,0 +1,21 @@
+.DS_Store
+.idea/
+.vscode/
+*.iml
+
+# Local Android tooling and machine-specific files
+.tooling/
+.docker-android-sdk/
+AndroidUnityScaffold/local.properties
+AndroidUnityScaffold/.gradle/
+
+# Android build outputs
+AndroidUnityScaffold/**/build/
+*.apk
+*.aab
+
+# Large local artifacts not meant for GitHub
+Project.rar
+extracted_asar/
+extracted_installer/
+extracted_project/

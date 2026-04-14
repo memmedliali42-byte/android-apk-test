@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.application'
+}
+
+def debugKeystore = file(System.getProperty("user.home") + "/.android/debug.keystore")
+
+android {
+    namespace 'com.example.launcher'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.launcher"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        if (debugKeystore.exists()) {
+            release {
+                storeFile debugKeystore
+                storePassword "android"
+                keyAlias "androiddebugkey"
+                keyPassword "android"
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+            shrinkResources false
+            if (debugKeystore.exists()) {
+                signingConfig signingConfigs.release
+            }
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    packaging {
+        resources {
+            excludes += ['/META-INF/{AL2.0,LGPL2.1}']
+        }
+    }
+}
+
+dependencies {
+    implementation project(':unityLibrary')
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.activity:activity:1.9.2'
+    implementation 'androidx.core:core:1.13.1'
+}
